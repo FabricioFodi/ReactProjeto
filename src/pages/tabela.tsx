@@ -17,17 +17,22 @@ export function tabela() {
 
     return (
             <form onSubmit={handleSubmit} id="formTabela">
-                <label htmlFor="">IMEI</label>
+                <label htmlFor="imei">IMEI</label>
                 <input type="number" id="imei"/>
-                <label htmlFor="">Usuário</label>
+
+                <label htmlFor="user">Usuário</label>
                 <input type="text" id="user"/>
-                <label htmlFor="">Cadastro Funcionario</label>
+
+                <label htmlFor="cad_funcionario">Cadastro Funcionario</label>
                 <input type="number" id="cad_funcionario"/>
-                <label htmlFor="">Telefone</label>
+
+                <label htmlFor="telefone">Telefone</label>
                 <input type="text" placeholder="(11) 12345-6789" id="telefone"/>
-                <label htmlFor="">Modelo</label>
+                
+                <label htmlFor="modelo">Modelo</label>
                 <input type="text" id="modelo"/>
-                <button id="enviar">Enviar</button>
+
+                <button type="submit" id="enviar">Enviar</button>
             </form>
     )
 
