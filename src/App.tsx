@@ -13,14 +13,21 @@ function App() {
         <div className='cabecalho'>
           <div className='img-da-esquerda'>
             <img src={reactLogo} alt='react logo' />
-          </div>
+          </div> {/* fim div img-da-esquerda */}
           <div className="escolhas">
-            <p><a href="#">Home</a></p>
-            <p><a href="#">Tabela</a></p>
-            <p><a href="#">Sobre</a></p>
-          </div>
-        </div>
-      </div>
+            <nav className='header-menu'>
+              <ul className='menu-list'>
+                <li className='menu-item'><a href="#">Home</a></li>
+                <li className='menu-item'><a href="#">Tabela</a></li>
+                <li className='menu-item'><a href="#">Sobre</a></li>
+              </ul>
+            </nav>
+          </div> {/* fim div escolhas */}
+        </div> {/* fim div cabecalho */}
+        <div className='img-da-direita'>
+          <img src={viteLogo} alt='vite logo' />
+        </div> {/* fim div img-da-direita */}
+      </div> {/* fim div tudo */}
     </>
   )
 }
