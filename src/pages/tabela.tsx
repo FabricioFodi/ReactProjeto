@@ -1,6 +1,5 @@
-import { useState } from 'react';
 
-export function tabela() {
+function Tabela() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -37,3 +36,4 @@ export function tabela() {
     )
 
 }
+export default Tabela
