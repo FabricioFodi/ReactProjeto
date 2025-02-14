@@ -1,4 +1,4 @@
-import './App.css'
+import '../App.css'
 import Header from './header'
 
 
@@ -14,7 +14,7 @@ function Home() {
               <h1>Anotando os dados dos novos celulares</h1>
             </div> {/* fim div conteudo */}
           </main>
-        </div>
+        </div> {/* fim div pagina-principal */}
       </div > {/* fim div tudo */}
     </>
   )

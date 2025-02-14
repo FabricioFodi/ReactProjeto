@@ -1,12 +1,21 @@
+import Header from './header';
+
 function About() {
 
     return (
         <>
-            <div>
-                <h1><span>Sobre o Projeto</span></h1>
-                <p>Este projeto foi criado com um único e exclusivo obejtivo de cadastrar os celulares novos dos colaboradores da Trapp</p>
+            <div className="container">
+                <Header />
+                <header className="header-content">
+                    <h1><span>Sobre o Projeto</span></h1>
+                </header>
+                <main className='main-content'>
+                    <p>Este projeto foi criado com um único e exclusivo obejtivo de cadastrar os celulares novos dos colaboradores da Trapp</p>
+                </main>
             </div>
-            <p>Desenvolvido por Fabricio Fodi</p>
+            <footer className="footer-content">
+                <p>Desenvolvido por Fabricio Fodi</p>
+            </footer>
         </>
     )
 

@@ -1,3 +1,4 @@
+import Header from './header';
 
 function Tabela() {
 
@@ -12,27 +13,53 @@ function Tabela() {
         const modelo = (form.querySelector('#modelo') as HTMLInputElement).value;
 
         console.log({ imei, user, cad_funcionario, telefone, modelo });
+
+        // fetch('') // Finalizar o backend primeiro para fazer a requisição
     }
 
     return (
-            <form onSubmit={handleSubmit} id="formTabela">
-                <label htmlFor="imei">IMEI</label>
-                <input type="number" id="imei"/>
+        <>
+            <div className="tudo">
+                <Header />
+                <div className="titulo-pagina">
+                    <h1>Cadastro de Celular</h1>
+                </div>
+                <div className="form-cadastro">
+                    <h2>Preencha todos os campos abaixo:</h2>
+                    <p>Os campos com * são obrigatórios</p>
 
-                <label htmlFor="user">Usuário</label>
-                <input type="text" id="user"/>
+                    <form onSubmit={handleSubmit} id="formTabela">
+                        <div className='forma'>
+                            <label htmlFor="imei">IMEI*</label>
+                            <input type="number" id="imei" />
+                        </div>
 
-                <label htmlFor="cad_funcionario">Cadastro Funcionario</label>
-                <input type="number" id="cad_funcionario"/>
+                        <div className='forma'>
+                            <label htmlFor="user">Usuário*</label>
+                            <input type="text" id="user" />
+                        </div>
 
-                <label htmlFor="telefone">Telefone</label>
-                <input type="text" placeholder="(11) 12345-6789" id="telefone"/>
-                
-                <label htmlFor="modelo">Modelo</label>
-                <input type="text" id="modelo"/>
+                        <div className="forma">
+                            <label htmlFor="cad_funcionario">Cadastro Funcionario*</label>
+                            <input type="number" id="cad_funcionario" />
+                        </div>
 
-                <button type="submit" id="enviar">Enviar</button>
-            </form>
+                        <div className="forma">
+                            <label htmlFor="telefone">Telefone*</label>
+                            <input type="text" placeholder="(11) 12345-6789" id="telefone" />
+                        </div>
+                        <div className='forma'>
+                            <label htmlFor="modelo">Modelo*</label>
+                            <input type="text" id="modelo" />
+                        </div>
+
+                        <div className="butao">
+                            <button type="submit" id="enviar">Enviar</button>
+                        </div>
+                    </form> {/* fim form */}
+                </div> {/* fim div form-cadastro */}
+            </div> {/* fim div tudo */}
+        </>
     )
 
 }
