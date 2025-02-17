@@ -26,30 +26,30 @@ function Tabela() {
                 </div>
                 <div className="form-cadastro">
                     <h2>Preencha todos os campos abaixo:</h2>
-                    <p>Os campos com * são obrigatórios</p>
+                    <span><p>Os campos com * são obrigatórios</p></span>
 
                     <form onSubmit={handleSubmit} id="formTabela">
                         <div className='forma'>
-                            <label htmlFor="imei">IMEI*</label>
+                            <label htmlFor="imei">IMEI <span>*</span></label>
                             <input type="number" id="imei" />
                         </div>
 
                         <div className='forma'>
-                            <label htmlFor="user">Usuário*</label>
+                            <label htmlFor="user">Usuário <span>*</span></label>
                             <input type="text" id="user" />
                         </div>
 
                         <div className="forma">
-                            <label htmlFor="cad_funcionario">Cadastro Funcionario*</label>
+                            <label htmlFor="cad_funcionario">Cadastro Funcionario <span>*</span></label>
                             <input type="number" id="cad_funcionario" />
                         </div>
 
                         <div className="forma">
-                            <label htmlFor="telefone">Telefone*</label>
+                            <label htmlFor="telefone">Telefone <span>*</span></label>
                             <input type="text" placeholder="(11) 12345-6789" id="telefone" />
                         </div>
                         <div className='forma'>
-                            <label htmlFor="modelo">Modelo*</label>
+                            <label htmlFor="modelo">Modelo <span>*</span></label>
                             <input type="text" id="modelo" />
                         </div>
 
@@ -61,6 +61,5 @@ function Tabela() {
             </div> {/* fim div tudo */}
         </>
     )
-
 }
 export default Tabela
