@@ -1,9 +1,9 @@
 import '../App.css'
-import Header from './header'
+import Header from './header.js'
 
 
 function Home() {
-
+  
   return (
     <>
       <div className='tudo'>

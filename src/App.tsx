@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Tabela from './pages/tabela';
 import Consultar from './pages/consulta';
@@ -7,7 +7,7 @@ import About from './pages/about';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tabela" element={<Tabela />} />
@@ -15,7 +15,8 @@ function App() {
         <Route path="/recomendacoes" element={<Recommended />} />
         <Route path="/sobre" element={<About />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
+
 export default App;

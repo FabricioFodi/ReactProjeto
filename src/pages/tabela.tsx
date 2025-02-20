@@ -1,20 +1,37 @@
-import Header from './header';
+import Header from './header.js';
 
 function Tabela() {
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const form = e.currentTarget;
-        const imei = (form.querySelector('#imei') as HTMLInputElement).value;
-        const user = (form.querySelector('#user') as HTMLInputElement).value;
-        const cad_funcionario = (form.querySelector('#cad_funcionario') as HTMLInputElement).value;
-        const telefone = (form.querySelector('#telefone') as HTMLInputElement).value;
-        const modelo = (form.querySelector('#modelo') as HTMLInputElement).value;
+        const imei = (document.getElementById('imei') as HTMLInputElement).value;
+        const usuario = (document.getElementById('user') as HTMLInputElement).value;
+        const cad_funcionario = (document.getElementById('cad_funcionario') as HTMLInputElement).value;
+        const telefone = (document.getElementById('telefone') as HTMLInputElement).value;
+        const modelo = (document.getElementById('modelo') as HTMLInputElement).value;
 
-        console.log({ imei, user, cad_funcionario, telefone, modelo });
+        console.log({ imei, usuario, cad_funcionario, telefone, modelo });
 
-        // fetch('') // Finalizar o backend primeiro para fazer a requisição
+        try {
+            const response = await fetch('http://localhost:5000/tabela', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ imei, usuario, cad_funcionario, telefone, modelo })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.erro || 'Erro na resposta do servidor');
+            }
+            console.log(data);
+            alert('Cadastro realizado com sucesso');
+
+        } catch (error) {
+            console.error('Erro ao enviar dados', error);
+            alert('Erro ao enviar dados');
+        }
     }
 
     return (
