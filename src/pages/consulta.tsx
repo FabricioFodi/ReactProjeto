@@ -2,7 +2,7 @@ import Header from './header.js';
 
 function Consulta() {
     return (
-        <div className="container">
+        <div className="tudo-consulta">
             <Header />
             <header className="header-content">
                 <h1>Consulta</h1>

@@ -1,10 +1,33 @@
 import Header from './header.js';
+import '../backend/styles/pagina-tabela.css';
 
 function Tabela() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        //Lista de campos obrigatórios
+        const camposObrigatorios = ['imei', 'user', 'cad_funcionario', 'telefone', 'modelo'];
+        let formValido = true;
+
+        //Verifica se os campos obrigatórios estão preenchidos
+        camposObrigatorios.forEach((id) => {
+            const input = document.getElementById(id) as HTMLInputElement;
+            const span = input.nextElementSibling as HTMLSpanElement;
+
+            if (!input.value.trim()) {
+                input.classList.add('erro'); //Adiciona borda vermelha
+                span.style.display = 'block'; // Mostra o <span>
+                formValido = false;
+            } else {
+                input.classList.remove('erro');
+                span.style.display = 'none';
+            }
+        });
+
+        if (!formValido) return;
+
+        //se o formulário for válido, envia os dados
         const imei = (document.getElementById('imei') as HTMLInputElement).value;
         const usuario = (document.getElementById('user') as HTMLInputElement).value;
         const cad_funcionario = (document.getElementById('cad_funcionario') as HTMLInputElement).value;
@@ -36,10 +59,10 @@ function Tabela() {
 
     return (
         <>
-            <div className="tudo">
-                <Header />
+            <Header />
+            <div className="tudo-tabela">
                 <div className="titulo-pagina">
-                    <h1>Cadastro de Celular</h1>
+                    <h1>CADASTRO DE CELULAR</h1>
                 </div>
                 <div className="form-cadastro">
                     <h2>Preencha todos os campos abaixo:</h2>
@@ -49,33 +72,40 @@ function Tabela() {
                         <div className='forma'>
                             <label htmlFor="imei">IMEI <span>*</span></label>
                             <input type="number" id="imei" />
+                            <span className="erro-mensagem">Preencha este campo</span>
                         </div>
 
                         <div className='forma'>
                             <label htmlFor="user">Usuário <span>*</span></label>
                             <input type="text" id="user" />
+                            <span className="erro-mensagem">Preencha este campo</span>
                         </div>
 
                         <div className="forma">
                             <label htmlFor="cad_funcionario">Cadastro Funcionario <span>*</span></label>
                             <input type="number" id="cad_funcionario" />
+                            <span className="erro-mensagem">Preencha este campo</span>
                         </div>
 
                         <div className="forma">
                             <label htmlFor="telefone">Telefone <span>*</span></label>
                             <input type="text" placeholder="(11) 12345-6789" id="telefone" />
+                            <span className="erro-mensagem">Preencha este campo</span>
                         </div>
+
                         <div className='forma'>
                             <label htmlFor="modelo">Modelo <span>*</span></label>
                             <input type="text" id="modelo" />
+                            <span className="erro-mensagem">Preencha este campo</span>
                         </div>
+
 
                         <div className="butao">
                             <button type="submit" id="enviar">Enviar</button>
                         </div>
                     </form> {/* fim form */}
                 </div> {/* fim div form-cadastro */}
-            </div> {/* fim div tudo */}
+            </div> {/* fim div tudo-tabela */}
         </>
     )
 }

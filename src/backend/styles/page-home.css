@@ -1,0 +1,41 @@
+.tudo {
+    font-family:'Times New Roman', Times, serif;
+    display: flex;
+    width: 100%;
+    height: 60%;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid green; */
+}
+
+.homepage {
+    /* border: 1px solid red; */
+    width: 65%;
+    padding-top: 7%;
+}
+
+
+.titulo-da-pagina h1 {
+    text-align: end;
+    font-size: 6em;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo-da-pagina span {
+    display: block;
+    /* Cada span vira uma linha */
+}
+
+.linha1 {
+    text-align: start;
+}
+
+.linha2 {
+    font-family: 'fontiii', sans-serif;
+    text-align: center;
+}
+
+.linha3 {
+    text-align: end;
+}

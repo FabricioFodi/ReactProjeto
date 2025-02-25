@@ -5,7 +5,7 @@ function Recommended() {
 
     return (
         <>
-            <div className="tudo">
+            <div className="tudo-recomendacoes">
                 <Header />
                 <div className="pagina-principal">
                     <main className="homepage">

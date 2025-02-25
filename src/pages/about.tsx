@@ -4,7 +4,7 @@ function About() {
 
     return (
         <>
-            <div className="container">
+            <div className="tudo-sobre">
                 <Header />
                 <header className="header-content">
                     <h1><span>Sobre o Projeto</span></h1>
