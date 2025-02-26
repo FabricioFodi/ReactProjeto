@@ -91,6 +91,12 @@ input[type=number] {
     font-family: 'Roboto', sans-serif;
 }
 
+.butao button:hover {
+    background-color: #4a4a4a;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+
 .erro {
     border: 2px solid red;
     background-color: #ffe6e6;
