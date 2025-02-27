@@ -14,11 +14,11 @@ function Recommended() {
                         </div> {/* fim div titulo-da-pagina */}
                         <div className="conteudo-recomendacoes">
                             <h2>Backup do WhatsApp</h2>
-                            <p>Para fazer o backup do WhatsApp, vá em <code> Configurações {'>'} Conversas {'>'} Backup de conversas.</code>
+                            <p>Para fazer o backup do WhatsApp, vá em <code> Configurações {'>'} Conversas {'>'} Backup de conversas. </code>
                                 Lá deve-se escolher a opção <strong>Diariamente</strong> assim quando houver a necessidade ou em casos de acidentes com o celular
                                 não sera perdido quase nenhuma conversa, imagens e afins.</p>
                             <h2>Sincronização do celular</h2>
-                            <p>Para sincronizar o celular com o google, vá para <code> Configurações {'>'} Contas e Backup {'>'} Gerencias contas.</code>
+                            <p>Para sincronizar o celular com o google, vá para <code> Configurações {'>'} Contas e Backup {'>'} Gerencias contas. </code>
                                 Escolha a conta e clique em  <strong>sincronizar a conta</strong>, depois clique nos três pontinhos e aperte <strong>Sincronizar agora</strong>.</p>
                             <h2>Sincronizar Contatos</h2>
                             <p>Antes de tirar o chip do celular deverá ser feito uma <strong>Sincronização dos contatos</strong>, para sincronizar os contatos, vá para <code> Contatos {'>'} Gerenciar 

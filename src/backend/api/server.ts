@@ -25,8 +25,8 @@ conexao.connect((erro) => {
 
 app.post('/tabela', (req: Request, res: Response) => {
     const { imei, usuario, cad_funcionario, telefone, modelo } = req.body;
-    console.log({ imei, usuario, cad_funcionario, telefone, modelo });
     const sql = 'INSERT INTO dados (imei, usuario, cad_funcionario, telefone, modelo) VALUES (?, ?, ?, ?, ?)';
+
     conexao.query(sql, [imei, usuario, cad_funcionario, telefone, modelo], (erro, resultado) => {
         if (erro) {
             console.error('Erro no MySQL:', erro);

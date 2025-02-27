@@ -1,21 +1,19 @@
 import Header from './header.js';
+import '../backend/styles/page-about.css'
 
 function About() {
 
     return (
         <>
+            <Header />
             <div className="tudo-sobre">
-                <Header />
-                <header className="header-content">
-                    <h1><span>Sobre o Projeto</span></h1>
+                <header className="header-sobre">
+                    <h1><span>SOBRE O PROJETO</span></h1>
                 </header>
-                <main className='main-content'>
+                <main className='main-sobre'>
                     <p>Este projeto foi criado com um único e exclusivo obejtivo de cadastrar os celulares novos dos colaboradores da Trapp</p>
                 </main>
             </div>
-            <footer className="footer-content">
-                <p>Desenvolvido por Fabricio Fodi</p>
-            </footer>
         </>
     )
 

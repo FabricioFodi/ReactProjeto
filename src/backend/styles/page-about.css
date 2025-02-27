@@ -1,0 +1,28 @@
+.tudo-sobre {
+    display: flex;
+    width: 100%;
+    height: 60%;
+    flex-direction: column;
+    /* border: 1px solid green; */
+}
+
+.header-sobre h1{
+    font-family: 'fontiii', sans-serif;
+    font-size: 3em;
+    border-bottom: 1px solid black;
+}
+
+.main-sobre {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: auto;
+    margin: 20px auto;
+}
+
+.main-sobre p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 2em;
+
+}
