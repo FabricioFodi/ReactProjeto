@@ -11,7 +11,7 @@ function About() {
                     <h1><span>SOBRE O PROJETO</span></h1>
                 </header>
                 <main className='main-sobre'>
-                    <p>Este projeto foi criado com um único e exclusivo obejtivo de cadastrar os celulares novos dos colaboradores da Trapp</p>
+                    <p>Este projeto foi criado com um único e exclusivo obejtivo de cadastrar os celulares novos dos colaboradores da <strong>TRAPP</strong></p>
                 </main>
             </div>
         </>

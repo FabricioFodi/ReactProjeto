@@ -53,3 +53,7 @@
 .conteudo-recomendacoes p {
     line-height: 2em;
 }
+
+.conteudo-recomendacoes code {
+    color: rgb(247, 40, 40);
+}
