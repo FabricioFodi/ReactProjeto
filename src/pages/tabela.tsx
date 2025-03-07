@@ -65,22 +65,21 @@ function Tabela() {
             toast.error('Erro ao enviar dados', { autoClose: 3000 });
         }
         try {
-            const response = await fetch('http://localhost:5000/excel', {
+            const response = await fetch('http://localhost:5000/exportar-excel', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ imei, usuario, cad_funcionario, telefone, modelo })
+                }
             });
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.erro || 'Erro na resposta do servidor');
             }
             console.log(data);
-            toast.success('Planilha atualizada com sucesso', { autoClose: 3000 });
+            toast.success('Planilha criada com sucesso', { autoClose: 3000 });
         } catch (error) {
-            console.error('Erro ao enviar planilha', error);
-            toast.error('Erro ao atualizar Planilha', { autoClose: 3000 });
+            console.error('Erro ao criar planilha', error);
+            toast.error('Erro ao criar Planilha', { autoClose: 3000 });
         }
     }
 
@@ -122,6 +121,7 @@ function Tabela() {
 
                         <div className="butao">
                             <button type="submit" id="enviar">Enviar</button>
+                            <button type="submit" id="excel">Exportar para Excel</button>
                             <button type="reset" id="limpar">Limpar</button>
                         </div>
                     </form> {/* fim form */}

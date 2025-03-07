@@ -34,43 +34,83 @@ interface ExcelRequestBody {
     modelo: string;
 }
 
-app.post('/excel', (req: express.Request<{}, {}, ExcelRequestBody>, res: express.Response) => {
+
+app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res: express.Response) => {
     try {
-        const { imei, usuario, cad_funcionario, telefone, modelo } = req.body;
-        const filePath = 'C:/Users/fabricio/Desktop/teste.xlsx';
+        const query = 'SELECT * FROM dados'
 
-        let arquivo: XLSX.WorkBook;
-        let planilha: XLSX.WorkSheet;
-
-        if(fs.existsSync(filePath)) { // Verifica se a planilha existe
-            arquivo = XLSX.readFile(filePath);
-            planilha = arquivo.Sheets['Planilha 1']; // Pega a planilha pelo nome
-
-            if(!planilha) { // Se a planilha não existir, cria uma nova
-                planilha = XLSX.utils.json_to_sheet([]);
-                XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
+        conexao.query(query, (erro, resultado) => {
+            if (erro) {
+                console.error('❌ Erro ao buscar dados do MySQL', erro);
+                return res.status(400).json({ erro: erro.message });
             }
-        } else {
-            arquivo = XLSX.utils.book_new();
-            planilha = XLSX.utils.json_to_sheet([]);
-            XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
-        }
+            if ((resultado as any[]).length === 0) {
+                return res.status(404).json({ mensagem: 'Nenhum dado encontrado' });
+            }
 
-        const data = XLSX.utils.sheet_to_json(planilha); // Converte a planilha para JSON
-        data.push({ imei, usuario, cad_funcionario, telefone, modelo }); // Adiciona os novos dados
+            const filePath = 'C:/Users/fabricio/Desktop/teste-excel';
+            const fileName = `{filePath}/dados.xlsx`
 
-        XLSX.utils.sheet_add_json(planilha, data); // Adiciona os dados na planilha
-        XLSX.writeFile(arquivo, filePath); // Sobrescreve a planilha com os novos dados
+            //verifica se o diretório existe, se não cria
+            if(fs.existsSync(fileName)) {
+                fs.mkdirSync(filePath, { recursive: true });
+            }
 
-        console.log('✅ Planilha atualizada com sucesso', data);
-        res.status(201).json({ mensagem: 'Planilha atualizada' });
+            //Cria um novo arquivo e adiciona os dados do banco
+            const arquivo = XLSX.utils.book_new();
+            const planilha = XLSX.utils.json_to_sheet([]);
+            XLSX.utils.book_append_sheet(arquivo, planilha, 'Dados');
 
-    } catch (erro) {
-        const mensagemErro = erro instanceof Error ? erro.message : 'Erro não identificado';
-        console.error('❌ Erro ao atualizar planilha', mensagemErro);
+            //salva o arquivo
+            XLSX.writeFile(arquivo, `${filePath}/dados.xlsx`);
+            
+            console.log('✅ Planilha exportada com sucesso');
+            res.status(201).json({ mensagem: 'Planilha exportada' });
+        });
+    } catch (error) {
+        const mensagemErro = error instanceof Error ? error.message : 'Erro não identificado';
+        console.error('❌ Erro ao exportar planilha', mensagemErro);
         res.status(500).json({ mensagem: 'Erro interno do servidor' });
     }
 });
+
+// app.post('/excel', (req: express.Request<{}, {}, ExcelRequestBody>, res: express.Response) => {
+//     try {
+//         const { imei, usuario, cad_funcionario, telefone, modelo } = req.body;
+//         const filePath = 'C:/Users/fabricio/Desktop/teste.xlsx';
+
+//         let arquivo: XLSX.WorkBook;
+//         let planilha: XLSX.WorkSheet;
+
+//         if (fs.existsSync(filePath)) { // Verifica se a planilha existe
+//             arquivo = XLSX.readFile(filePath);
+//             planilha = arquivo.Sheets['Planilha 1']; // Pega a planilha pelo nome
+
+//             if (!planilha) { // Se a planilha não existir, cria uma nova
+//                 planilha = XLSX.utils.json_to_sheet([]);
+//                 XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
+//             }
+//         } else {
+//             arquivo = XLSX.utils.book_new();
+//             planilha = XLSX.utils.json_to_sheet([]);
+//             XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
+//         }
+
+//         const data = XLSX.utils.sheet_to_json(planilha); // Converte a planilha para JSON
+//         data.push({ imei, usuario, cad_funcionario, telefone, modelo }); // Adiciona os novos dados
+
+//         XLSX.utils.sheet_add_json(planilha, data); // Adiciona os dados na planilha
+//         XLSX.writeFile(arquivo, filePath); // Sobrescreve a planilha com os novos dados
+
+//         console.log('✅ Planilha atualizada com sucesso', data);
+//         res.status(201).json({ mensagem: 'Planilha atualizada' });
+
+//     } catch (erro) {
+//         const mensagemErro = erro instanceof Error ? erro.message : 'Erro não identificado';
+//         console.error('❌ Erro ao atualizar planilha', mensagemErro);
+//         res.status(500).json({ mensagem: 'Erro interno do servidor' });
+//     }
+// });
 
 // Rota para postar os dados na tabela do MySQL
 app.post('/tabela', (req: Request, res: Response) => {
@@ -90,5 +130,5 @@ app.post('/tabela', (req: Request, res: Response) => {
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta 5000`);
 });
-//npx tsx watch server.ts 
+//npx tsx watch server.ts
 //comando para rodar o servidor
