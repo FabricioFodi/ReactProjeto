@@ -2,7 +2,6 @@ import Header from './header.js';
 import '../backend/styles/pagina-tabela.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { resolve } from 'path';
 
 function Tabela() {
 
@@ -15,6 +14,7 @@ function Tabela() {
         const camposObrigatorios = ['imei', 'user', 'cad_funcionario', 'telefone', 'modelo'];
         let formValido = true;
         const inputs: HTMLInputElement[] = [];
+        const toastId = 'form-validation-toast';
 
         //Verifica se os campos obrigatórios estão preenchidos
         camposObrigatorios.forEach((id) => {
@@ -22,17 +22,18 @@ function Tabela() {
 
             if (!input.value.trim()) {
                 formValido = false;
-                input.style.border = '1px solid red';
+                input.style.border = '2px solid red';
                 inputs.push(input);
-                
+
             }
         });
 
         if (!formValido) {
-            toast.error('Preencha todos os campos obrigatórios', { autoClose: 3000 });
-
+            if (!toast.isActive(toastId)) {
+                toast.error('Preencha todos os campos obrigatórios', { toastId, autoClose: 3000 });
+            }
             await sleep(3000);
-            inputs.forEach((input) =>(input.style.border = '1px solid black'));
+            inputs.forEach((input) => (input.style.border = '1px solid black'));
             return;
         }
 
@@ -63,23 +64,6 @@ function Tabela() {
         } catch (error) {
             console.error('Erro ao enviar dados', error);
             toast.error('Erro ao enviar dados', { autoClose: 3000 });
-        }
-        try {
-            const response = await fetch('http://localhost:5000/exportar-excel', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.erro || 'Erro na resposta do servidor');
-            }
-            console.log(data);
-            toast.success('Planilha criada com sucesso', { autoClose: 3000 });
-        } catch (error) {
-            console.error('Erro ao criar planilha', error);
-            toast.error('Erro ao criar Planilha', { autoClose: 3000 });
         }
     }
 
@@ -121,7 +105,7 @@ function Tabela() {
 
                         <div className="butao">
                             <button type="submit" id="enviar">Enviar</button>
-                            <button type="submit" id="excel">Exportar para Excel</button>
+                            <button type="submit" id="excel">Exportar p/ Excel</button>
                             <button type="reset" id="limpar">Limpar</button>
                         </div>
                     </form> {/* fim form */}
@@ -130,4 +114,25 @@ function Tabela() {
         </>
     )
 }
+
+async function exportarExcel() {
+    try {
+        const response = await fetch('http://localhost:5000/exportar-excel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.erro || 'Erro na resposta do servidor');
+        }
+        console.log(data);
+        toast.success('Planilha criada com sucesso', { autoClose: 3000 });
+    } catch (error) {
+        console.error('Erro ao criar planilha', error);
+        toast.error('Erro ao criar Planilha', { autoClose: 3000 });
+    }
+}
+
 export default Tabela
