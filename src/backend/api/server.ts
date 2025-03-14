@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import mysql, { ConnectionOptions } from 'mysql2';
-import XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import fs from 'fs';
 
 const app = express();
@@ -49,23 +49,54 @@ app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res
             }
 
             const filePath = 'C:/Users/fabricio/Desktop/teste-excel';
-            const fileName = `{filePath}/dados.xlsx`
+            const fileName = `${filePath}/dados.xlsx`;
 
             //verifica se o diretório existe, se não cria
-            if(fs.existsSync(fileName)) {
+            if (!fs.existsSync(filePath)) {
                 fs.mkdirSync(filePath, { recursive: true });
             }
 
-            //Cria um novo arquivo e adiciona os dados do banco
-            const arquivo = XLSX.utils.book_new();
-            const planilha = XLSX.utils.json_to_sheet([]);
-            XLSX.utils.book_append_sheet(arquivo, planilha, 'Dados');
+            //Cria um novo arquivo
+            const arquivo = new ExcelJS.Workbook();
+            const planilha = arquivo.addWorksheet('Dados')
 
-            //salva o arquivo
-            XLSX.writeFile(arquivo, `${filePath}/dados.xlsx`);
-            
-            console.log('✅ Planilha exportada com sucesso');
-            res.status(201).json({ mensagem: 'Planilha exportada' });
+            const headers = Object.keys((resultado as any[])[0]);
+            planilha.addRow(headers);
+
+            //Adiciona os dados ao arquivo
+            const dados = (resultado as any[]).map(row => Object.values(row));
+            planilha.addRows(dados); // Adiciona as linhas
+
+            planilha.eachRow((row, rowNumber) => {
+                row.eachCell((cell, colNumber) => {
+                    // Centraliza todas as células
+                    cell.alignment = { vertical: 'middle', horizontal: 'center' };
+
+                    if (colNumber === 2) {
+                        cell.numFmt = '@';
+                    }
+                });
+            });
+
+            planilha.columns = [
+                { width: 4 }, // A
+                { width: 15 }, // B
+                { width: 36 }, // C
+                { width: 15 }, // D
+                { width: 16 }, // E
+                { width: 25 }  // F
+            ];
+
+            //Salva o arquivo
+            arquivo.xlsx.writeFile(fileName)
+                .then(() => {
+                    console.log('✅ Planilha exportada com sucesso');
+                    res.status(201).json({ mensagem: 'Planilha exportada' });
+                })
+                .catch((error) => {
+                    console.error('❌ Erro ao salvar planilha', error);
+                    res.status(500).json({ mensagem: 'Erro ao salvar planilha' });
+                });
         });
     } catch (error) {
         const mensagemErro = error instanceof Error ? error.message : 'Erro não identificado';
@@ -73,44 +104,6 @@ app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res
         res.status(500).json({ mensagem: 'Erro interno do servidor' });
     }
 });
-
-// app.post('/excel', (req: express.Request<{}, {}, ExcelRequestBody>, res: express.Response) => {
-//     try {
-//         const { imei, usuario, cad_funcionario, telefone, modelo } = req.body;
-//         const filePath = 'C:/Users/fabricio/Desktop/teste.xlsx';
-
-//         let arquivo: XLSX.WorkBook;
-//         let planilha: XLSX.WorkSheet;
-
-//         if (fs.existsSync(filePath)) { // Verifica se a planilha existe
-//             arquivo = XLSX.readFile(filePath);
-//             planilha = arquivo.Sheets['Planilha 1']; // Pega a planilha pelo nome
-
-//             if (!planilha) { // Se a planilha não existir, cria uma nova
-//                 planilha = XLSX.utils.json_to_sheet([]);
-//                 XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
-//             }
-//         } else {
-//             arquivo = XLSX.utils.book_new();
-//             planilha = XLSX.utils.json_to_sheet([]);
-//             XLSX.utils.book_append_sheet(arquivo, planilha, 'Planilha 1');
-//         }
-
-//         const data = XLSX.utils.sheet_to_json(planilha); // Converte a planilha para JSON
-//         data.push({ imei, usuario, cad_funcionario, telefone, modelo }); // Adiciona os novos dados
-
-//         XLSX.utils.sheet_add_json(planilha, data); // Adiciona os dados na planilha
-//         XLSX.writeFile(arquivo, filePath); // Sobrescreve a planilha com os novos dados
-
-//         console.log('✅ Planilha atualizada com sucesso', data);
-//         res.status(201).json({ mensagem: 'Planilha atualizada' });
-
-//     } catch (erro) {
-//         const mensagemErro = erro instanceof Error ? erro.message : 'Erro não identificado';
-//         console.error('❌ Erro ao atualizar planilha', mensagemErro);
-//         res.status(500).json({ mensagem: 'Erro interno do servidor' });
-//     }
-// });
 
 // Rota para postar os dados na tabela do MySQL
 app.post('/tabela', (req: Request, res: Response) => {
