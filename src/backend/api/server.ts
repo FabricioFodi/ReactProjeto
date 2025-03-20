@@ -64,7 +64,11 @@ app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res
             planilha.addRow(headers);
 
             //Adiciona os dados ao arquivo
-            const dados = (resultado as any[]).map(row => Object.values(row));
+            const dados = (resultado as any[]).map(row => {
+                const values = Object.values(row);
+                values[1] = String(values[1]); // Converte a coluna B para string
+                return values;
+            });
             planilha.addRows(dados); // Adiciona as linhas
 
             planilha.eachRow((row, rowNumber) => {
@@ -73,17 +77,17 @@ app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res
                     cell.alignment = { vertical: 'middle', horizontal: 'center' };
 
                     if (colNumber === 2) {
-                        cell.numFmt = '@';
+                        cell.numFmt = '@'; // Formata a coluna B como texto
                     }
                 });
             });
 
             planilha.columns = [
                 { width: 4 }, // A
-                { width: 15 }, // B
+                { width: 22 }, // B
                 { width: 36 }, // C
                 { width: 15 }, // D
-                { width: 16 }, // E
+                { width: 20 }, // E
                 { width: 25 }  // F
             ];
 
