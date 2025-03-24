@@ -83,12 +83,12 @@ app.post('/exportar-excel', (req: express.Request<{}, {}, ExcelRequestBody>, res
             });
 
             planilha.columns = [
-                { width: 4 }, // A
-                { width: 22 }, // B
-                { width: 36 }, // C
-                { width: 15 }, // D
-                { width: 20 }, // E
-                { width: 25 }  // F
+                { width: 4 }, // A id
+                { width: 22 }, // B imei
+                { width: 46 }, // C usuario
+                { width: 15 }, // D cadastro funcionario
+                { width: 20 }, // E telefone
+                { width: 25 }  // F modelo
             ];
 
             //Salva o arquivo
