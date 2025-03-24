@@ -10,7 +10,7 @@ function Consulta() {
                     <h1>CONSULTAR</h1>
                 </header>
                 <main className='main-container'>
-                    <p>Para visualizar os celulares cadastrados, consulte a pasta <strong> T.I </strong>no seguinte caminho: <strong> TI:\Telefones Celulares\Aparelhos com Funcionários 2022 2</strong></p>
+                    <p>Para visualizar os celulares cadastrados, consulte a pasta <strong> Documentos </strong>no seguinte caminho: <strong> Documents/Dados Celulares.XLSX</strong></p>
                 </main>
             </div>
         </>

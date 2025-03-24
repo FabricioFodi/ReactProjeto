@@ -118,7 +118,7 @@ function Tabela() {
 
                         <div className="forma">
                             <label htmlFor="cad_funcionario">Cadastro Funcionario <span>*</span></label>
-                            <input type="number" id="cad_funcionario" />
+                            <input type="text" id="cad_funcionario" />
                         </div>
 
                         <div className="forma">
